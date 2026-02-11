@@ -2,107 +2,174 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Timer com Notificação</title>
+<title>Timer Profissional</title>
 
 <style>
-  body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #0f172a, #020617);
-    color: #fff;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+:root {
+  --bg: #020617;
+  --card: #020617;
+  --primary: #38bdf8;
+  --success: #22c55e;
+  --text: #e5e7eb;
+}
 
-  .container {
-    background: #020617;
-    border-radius: 16px;
-    padding: 30px;
-    width: 320px;
-    text-align: center;
-    box-shadow: 0 20px 40px rgba(0,0,0,.5);
-  }
+* {
+  box-sizing: border-box;
+}
 
-  .container h1 {
-    font-size: 1.4rem;
-    margin-bottom: 20px;
-  }
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: linear-gradient(135deg, #0f172a, #020617);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  input {
-    width: 100%;
-    padding: 12px;
-    border-radius: 10px;
-    border: none;
-    margin-bottom: 15px;
-    font-size: 1rem;
-    text-align: center;
-  }
+/* CARD PRINCIPAL */
+.app {
+  background: rgba(2,6,23,.9);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 30px;
+  width: 360px;
+  box-shadow: 0 25px 60px rgba(0,0,0,.6);
+  text-align: center;
+}
 
-  button {
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 10px;
-    background: #38bdf8;
-    color: #020617;
-    font-weight: bold;
-    cursor: pointer;
-    transition: .3s;
-  }
+/* LOGO */
+.logo {
+  width: 90px;
+  margin-bottom: 10px;
+}
 
-  button:hover {
-    background: #0ea5e9;
-  }
+h1 {
+  font-size: 1.4rem;
+  margin-bottom: 20px;
+}
 
-  /* POPUP */
-  .popup {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,.7);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-  }
+/* TIMER */
+.timer-display {
+  font-size: 2.6rem;
+  font-weight: bold;
+  margin: 20px 0;
+  letter-spacing: 2px;
+}
 
-  .popup-box {
-    background: #020617;
-    padding: 30px;
-    border-radius: 18px;
-    text-align: center;
-    max-width: 320px;
-    animation: zoom .3s ease;
-  }
+/* INPUTS */
+.inputs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
 
-  .popup-box img {
-    width: 120px;
-    margin-bottom: 15px;
-  }
+.inputs input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  text-align: center;
+  font-size: 1rem;
+}
 
-  .popup-box h2 {
-    font-size: 1.3rem;
-    margin-bottom: 15px;
-  }
+/* BOTÕES */
+.buttons {
+  display: flex;
+  gap: 10px;
+}
 
-  .popup-box button {
-    background: #22c55e;
-    color: #022c22;
-  }
+button {
+  flex: 1;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: .3s;
+}
 
-  @keyframes zoom {
-    from { transform: scale(.8); opacity: 0 }
-    to { transform: scale(1); opacity: 1 }
-  }
+.start {
+  background: var(--primary);
+  color: #020617;
+}
+
+.pause {
+  background: #facc15;
+  color: #422006;
+}
+
+.reset {
+  background: #ef4444;
+  color: #450a0a;
+}
+
+button:hover {
+  opacity: .85;
+}
+
+/* POPUP */
+.popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.7);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.popup-box {
+  background: #020617;
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+  max-width: 320px;
+  animation: scale .3s ease;
+}
+
+.popup-box img {
+  width: 120px;
+  margin-bottom: 15px;
+}
+
+.popup-box h2 {
+  margin-bottom: 15px;
+}
+
+.popup-box button {
+  background: var(--success);
+  color: #022c22;
+}
+
+@keyframes scale {
+  from { transform: scale(.8); opacity: 0 }
+  to { transform: scale(1); opacity: 1 }
+}
 </style>
 </head>
 
 <body>
 
-<div class="container">
-  <h1>⏱ Criar Timer</h1>
-  <input type="number" id="time" placeholder="Tempo em segundos">
-  <button onclick="startTimer()">Iniciar</button>
+<div class="app">
+  <img class="logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAA0lBMVEUAYJL///8AXpEAWo8AXJAAX5EAWI4AVo0AQ4QAU4sAUIoAUosATIj7/f4ATokAYpPA0d+vwtImZpUAPoKOrcXH1eDb5OwvYZRBdJ4ASIYkYJL1+fu4ydhKe6Hm6/Ds9PghbJlUeKJLcJ3Q3eZkhauHo72hus4AQYN6obxYhakAM31rkbAAOH9Sd6HU4uqkvM9hk7Rrj7A2ZZZ7mbaAoro4gKdum7g6bptzkbKUtMlciaxigKiEnLktW5KRqcFeeaQAK3oddKAAIXhyiK2hv9FKapsmdaiXAAARJklEQVR4nO2cC3eiOtfHIQmJ3ESoIMjNFqFlnOpYO0Vs63ne95nz/b/SG8BLsJ0Zx3amznrzX+usMwKm+bGTnb1zURC4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLj+v8pg9NF1eWdJACBIFM3zOrU8T1MIgQABSfrour1dFA5h9dn6cp8F0zj2K8XTnpnef7UGyjOGEFLQj67l6QIQDu5WsyQWX5Pv2OZD+O9gCCBG4KPreooQtm4fev6GR9d1vxH9F8MZO+ZNflsM/zpKA2BrbDbG8+MoSYLZLFunabrOZjPTtqdOFPt7TLucPBYCJn8PpUGGK7MmiJMgW+SGrFUeptvtVg7HU8kon6drs5dE8dagUS9bPBZYhn9FtwTyVVbZz5+aTyGkrpPahh0tgISw3NUUw52nWZBE/rZnBuu5ixUonPt4AkhuVzW21yFSMHi9vtWwCKDcVa1wuTbtqLGlHtnZwlUV9Kfr/EsCeDKllXX6rkrAT6xRYWKZCO4yNacbU8bJbGF0yPka0lBzh9bTfCT42G9UxsTUlmXSQOqxneWad66tldxWTbS0yC/6RYQJuBr3k11zTUeaKp0hIxjOaAX7AJ7yXUjAXV46W8djrtQuOjtGPKdedDY81VXQOAgN8s1IqsdJKnj4vEJ1VATUibrHdsHXRGNZ8nyTbGKhaDa6ls+pQ5JHX4yX6htLkQDxRrNNPOv3wk/y2SBK6F4UA+s9hjPodSfTTcTjrK7JmcQ66M4W/afuu7xxAyheGGwMGU26GJ0DJLyKxSR8Sy9kZQjk2jU34Y6zGKAzYISXvhhI75kh4Asrc5pAYJoW6MMDc/hFFLPu+5aJrhlGF54y0L6jKKGfvk83ZIQ6o3UT0OlJ6hL4kY6VEsbv5Gja5XbdLaP9ZHU/MJj7XYS0ZJUy6s34uCDqhyHiR/03EVJGEq6bkDU2x95HdUc6WvyGfrgRwOgya8ZHJyu8n+Wev0fwynl3X8pIIsNLU9+4HPzW2PAkAcsUTfj7ZswMRAZ5sglX8+4HeFWAbkS7+K2zLAg/3zRNNcqGyp8PAPDYd8bk9/4NRIbmJiKfaH88Q4ZFov8uZ7oX6n7dTASY2p/ujRLqi6bx+ycDZa3fBOTxV+33/DUJVHqlF5Bx5Dy+vZlKEPzQXxnAczfTAN+e3921AQAR"/>
+  
+  <h1>Timer Profissional</h1>
+
+  <div class="timer-display" id="display">00:00:00</div>
+
+  <div class="inputs">
+    <input type="number" id="h" placeholder="Horas" min="0">
+    <input type="number" id="m" placeholder="Min" min="0">
+    <input type="number" id="s" placeholder="Seg" min="0">
+  </div>
+
+  <div class="buttons">
+    <button class="start" onclick="startTimer()">Iniciar</button>
+    <button class="pause" onclick="pauseTimer()">Pausar</button>
+    <button class="reset" onclick="resetTimer()">Resetar</button>
+  </div>
 </div>
 
 <!-- POPUP -->
@@ -115,57 +182,74 @@
 </div>
 
 <script>
-  const popup = document.getElementById('popup');
+let totalSeconds = 0;
+let interval = null;
+const display = document.getElementById("display");
+const popup = document.getElementById("popup");
 
-  // SERVICE WORKER INLINE
-  if ('serviceWorker' in navigator) {
-    const swCode = `
-      self.addEventListener('notificationclick', e => {
-        e.notification.close();
-        self.clients.openWindow('/');
-      });
-    `;
-    const blob = new Blob([swCode], { type: 'text/javascript' });
-    const swURL = URL.createObjectURL(blob);
-    navigator.serviceWorker.register(swURL);
+if ("Notification" in window && Notification.permission !== "granted") {
+  Notification.requestPermission();
+}
+
+function updateDisplay() {
+  const h = String(Math.floor(totalSeconds / 3600)).padStart(2, "0");
+  const m = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, "0");
+  const s = String(totalSeconds % 60).padStart(2, "0");
+  display.textContent = `${h}:${m}:${s}`;
+}
+
+function startTimer() {
+  if (interval) return;
+
+  if (totalSeconds === 0) {
+    const h = Number(document.getElementById("h").value || 0);
+    const m = Number(document.getElementById("m").value || 0);
+    const s = Number(document.getElementById("s").value || 0);
+    totalSeconds = h * 3600 + m * 60 + s;
+    if (totalSeconds <= 0) return alert("Informe um tempo válido");
   }
 
-  // PEDIR PERMISSÃO
-  if (Notification.permission !== 'granted') {
-    Notification.requestPermission();
-  }
-
-  function startTimer() {
-    const seconds = Number(document.getElementById('time').value);
-    if (!seconds || seconds <= 0) {
-      alert('Digite um tempo válido');
-      return;
-    }
-
-    setTimeout(() => {
+  interval = setInterval(() => {
+    totalSeconds--;
+    updateDisplay();
+    if (totalSeconds <= 0) {
+      clearInterval(interval);
+      interval = null;
       showPopup();
-      sendNotification();
-    }, seconds * 1000);
-  }
-
-  function showPopup() {
-    popup.style.display = 'flex';
-  }
-
-  function closePopup() {
-    popup.style.display = 'none';
-  }
-
-  function sendNotification() {
-    if (Notification.permission === 'granted') {
-      navigator.serviceWorker.ready.then(reg => {
-        reg.showNotification('⏰ Seu tempo acabou', {
-          body: 'O tempo do seu timer chegou ao fim.',
-          icon: document.querySelector('.popup-box img').src
-        });
-      });
+      notify();
     }
+  }, 1000);
+}
+
+function pauseTimer() {
+  clearInterval(interval);
+  interval = null;
+}
+
+function resetTimer() {
+  pauseTimer();
+  totalSeconds = 0;
+  updateDisplay();
+}
+
+function showPopup() {
+  popup.style.display = "flex";
+}
+
+function closePopup() {
+  popup.style.display = "none";
+}
+
+function notify() {
+  if (Notification.permission === "granted") {
+    new Notification("⏰ Seu tempo acabou", {
+      body: "O timer chegou ao fim.",
+      icon: document.querySelector(".logo").src
+    });
   }
+}
+
+updateDisplay();
 </script>
 
 </body>
